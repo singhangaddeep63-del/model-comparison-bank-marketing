@@ -1,0 +1,69 @@
+{
+  "results": {
+    "logistic_regression": {
+      "accuracy": 0.7548,
+      "precision": 0.2662,
+      "recall": 0.6238,
+      "f1": 0.3732,
+      "roc_auc": 0.7722,
+      "train_seconds": 0.2
+    },
+    "knn": {
+      "accuracy": 0.8921,
+      "precision": 0.6475,
+      "recall": 0.1701,
+      "f1": 0.2695,
+      "roc_auc": 0.7349,
+      "train_seconds": 0.1
+    },
+    "decision_tree": {
+      "accuracy": 0.8325,
+      "precision": 0.3608,
+      "recall": 0.5595,
+      "f1": 0.4387,
+      "roc_auc": 0.7637,
+      "train_seconds": 0.2
+    },
+    "random_forest": {
+      "accuracy": 0.8176,
+      "precision": 0.3416,
+      "recall": 0.6021,
+      "f1": 0.4359,
+      "roc_auc": 0.7943,
+      "train_seconds": 5.6
+    },
+    "adaboost": {
+      "accuracy": 0.8926,
+      "precision": 0.6605,
+      "recall": 0.1692,
+      "f1": 0.2694,
+      "roc_auc": 0.7816,
+      "train_seconds": 5.2
+    },
+    "gradient_boosting": {
+      "accuracy": 0.8962,
+      "precision": 0.6537,
+      "recall": 0.2391,
+      "f1": 0.3502,
+      "roc_auc": 0.8055,
+      "train_seconds": 11.1
+    },
+    "xgboost": {
+      "accuracy": 0.8958,
+      "precision": 0.6374,
+      "recall": 0.2543,
+      "f1": 0.3635,
+      "roc_auc": 0.802,
+      "train_seconds": 1.0
+    },
+    "stacking_ensemble": {
+      "accuracy": 0.8959,
+      "precision": 0.6459,
+      "recall": 0.2448,
+      "f1": 0.355,
+      "roc_auc": 0.8051,
+      "train_seconds": 53.0
+    }
+  },
+  "best_model": "gradient_boosting"
+}
