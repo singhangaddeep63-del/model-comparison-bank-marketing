@@ -23,6 +23,21 @@ st.caption(f"Best model by ROC-AUC: **{data['best_model']}**")
 
 st.bar_chart(results_df["roc_auc"])
 
+st.subheader("SMOTE vs class_weight — does oversampling help?")
+try:
+    with open("models/smote_comparison.json") as f:
+        smote_data = json.load(f)
+    smote_df = pd.DataFrame(smote_data).T
+    smote_df.index.name = "model_approach"
+    st.dataframe(smote_df, use_container_width=True)
+    st.caption(
+        "SMOTE applied only to training data. Across these models, SMOTE "
+        "doesn't clearly beat class_weight='balanced' on ROC-AUC — it mainly "
+        "trades recall for precision instead."
+    )
+except FileNotFoundError:
+    st.info("Run `python src/smote_comparison.py` to generate this comparison.")
+
 st.subheader("Why the model predicts what it predicts")
 st.markdown(
     "SHAP values for the XGBoost model — each dot is one customer, color shows "
