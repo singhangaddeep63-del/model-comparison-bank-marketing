@@ -37,6 +37,37 @@ lowest ROC-AUC, actually catches the most true subscribers (62% recall) —
 worth considering if the business cost of missing a would-be subscriber is
 high.
 
+## SMOTE vs class_weight — does synthetic oversampling actually help?
+
+`class_weight="balanced"` (used above) penalizes mistakes on the minority
+class more heavily during training, without touching the data.
+**SMOTE** (Synthetic Minority Oversampling Technique) instead generates
+synthetic minority-class examples by interpolating between real ones, so
+the training set becomes balanced before the model ever sees it.
+
+SMOTE is applied **only to the training data**, inside the pipeline —
+never to the test set, since evaluating on synthetic customers would be
+invalid.
+
+| Model | Approach | Accuracy | Precision | Recall | F1 | ROC-AUC |
+|---|---|---|---|---|---|---|
+| Logistic Regression | class_weight | 0.755 | 0.266 | 0.624 | 0.373 | 0.772 |
+| Logistic Regression | SMOTE | 0.747 | 0.261 | 0.634 | 0.369 | 0.767 |
+| Random Forest | class_weight | 0.818 | 0.342 | 0.602 | 0.436 | 0.794 |
+| Random Forest | SMOTE | 0.840 | 0.372 | 0.534 | 0.439 | 0.785 |
+| XGBoost | class_weight (scale_pos_weight) | 0.826 | 0.358 | 0.613 | 0.452 | **0.792** |
+| XGBoost | SMOTE | 0.894 | 0.606 | 0.273 | 0.377 | 0.794 |
+
+**Takeaway: SMOTE did not clearly beat class_weight here.** ROC-AUC is
+roughly a wash across all three models — sometimes marginally better,
+sometimes marginally worse. What SMOTE *does* consistently do is shift the
+precision/recall balance toward precision (fewer false alarms, more missed
+subscribers), which is the opposite of what you'd usually want when the
+cost of missing a genuine subscriber is high. On this dataset, with these
+models, `class_weight` is the simpler choice and performs just as well —
+a good example of why "more sophisticated technique" doesn't automatically
+mean "better result," and why it's worth testing rather than assuming.
+
 ## Why these models, and what they represent
 
 - **Logistic Regression** — linear baseline
